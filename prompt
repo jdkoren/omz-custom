@@ -1,0 +1,27 @@
+# get the difference between the local and remote branches
+git_remote_ahead_behind() {
+    remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+    if [[ -n ${remote} ]] ; then
+        ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+        behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+
+		git_state=""
+		if [ $ahead -gt 0 ]
+		then
+			git_state="$git_state%{$fg[green]%}$ahead↑"
+		fi
+
+		if [ $behind -gt 0 ]
+		then
+			git_state="$git_state%{$fg[red]%}$behind↓"
+		fi
+
+		echo "$git_state"
+    fi
+}
+
+function git_prompt_info_extra() {
+  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$(git_remote_ahead_behind)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}

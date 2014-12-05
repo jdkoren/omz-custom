@@ -1,0 +1,23 @@
+# shell
+alias ll='ls -al'
+alias e='echo'
+alias clr="clear"
+
+# android
+dump_logcat() {
+	adb logcat -v time -d > $1
+}
+alias logcat="adb logcat -v time"
+alias logd=dump_logcat
+alias adb-restart="adb kill-server; adb start-server"
+
+# git
+alias g="git"
+alias gco="git checkout"
+alias gst="git status"
+alias glo="git lola"
+
+# repo
+alias r="repo"
+alias rsy="repo sync"
+alias rst="repo status"
