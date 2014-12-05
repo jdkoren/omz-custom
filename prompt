@@ -20,8 +20,28 @@ git_remote_ahead_behind() {
     fi
 }
 
+# Git prompt suffix, appears after current head. If a merge, rebase, or bisect is in
+# progress, returns $JDK_GIT_PROMPT_SUFFIX_MERGING, $JDK_GIT_PROMPT_SUFFIX_REBASING, or
+# $JDK_GIT_PROMPT_SUFFIX_BISECTING respectively; otherwise returns the usual
+# $ZSH_THEME_GIT_PROMPT_SUFFIX.
+git_prompt_suffix() {
+	git_dir=$(command git rev-parse --git-dir 2>/dev/null)
+	if [[ -e "$git_dir/MERGE_HEAD" ]]
+	then
+		echo "$JDK_GIT_PROMPT_SUFFIX_MERGING"
+	elif [[ -e "$git_dir/rebase-merge" || -e "$git_dir/rebase-apply" ]]
+	then
+		echo "$JDK_GIT_PROMPT_SUFFIX_REBASING"
+	elif [[ -e "$git_dir/BISECT_LOG" ]]
+	then
+		echo "$JDK_GIT_PROMPT_SUFFIX_BISECTING"
+	else
+		echo "$ZSH_THEME_GIT_PROMPT_SUFFIX"
+	fi
+}
+
 function git_prompt_info_extra() {
-  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$(git_remote_ahead_behind)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+	ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
+	ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+	echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(parse_git_dirty)$(git_remote_ahead_behind)$(git_prompt_suffix)"
 }
