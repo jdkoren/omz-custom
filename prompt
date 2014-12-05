@@ -8,12 +8,12 @@ git_remote_ahead_behind() {
 		git_state=""
 		if [ $ahead -gt 0 ]
 		then
-			git_state="$git_state%{$fg[green]%}$ahead↑"
+			git_state="$git_state  %{$FG[010]%}${ahead##*( )}↑"
 		fi
 
 		if [ $behind -gt 0 ]
 		then
-			git_state="$git_state%{$fg[red]%}$behind↓"
+			git_state="$git_state  %{$FG[009]%}${behind##*( )}↓"
 		fi
 
 		echo "$git_state"
