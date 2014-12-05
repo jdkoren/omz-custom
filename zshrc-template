@@ -55,9 +55,6 @@ source $ZSH_CUSTOM/prompt
 
 export PATH=$PATH:$HOME/bin:/usr/local/bin
 
-PROMPT="%{$fg_bold[red]%}jdkoren %{$fg[yellow]%}%~ : %{$reset_color%}"
-RPROMPT='%{$fg[yellow]%}%p $(git_prompt_info_extra)%{$reset_color%}'
-
 # local aliases
 
 ### End user configuration ###
