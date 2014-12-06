@@ -6,17 +6,17 @@ git_remote_ahead_behind() {
         behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
 
 		git_state=""
-		if [ $ahead -gt 0 ]
+		if [ ${ahead} -gt 0 ]
 		then
-			git_state="$git_state  %{$FG[010]%}${ahead##*( )}↑"
+			git_state="${git_state}  %{$FG[010]%}${ahead##*( )}↑"
 		fi
 
-		if [ $behind -gt 0 ]
+		if [ ${behind} -gt 0 ]
 		then
-			git_state="$git_state  %{$FG[009]%}${behind##*( )}↓"
+			git_state="${git_state}  %{$FG[009]%}${behind##*( )}↓"
 		fi
 
-		echo "$git_state"
+		echo "${git_state}"
     fi
 }
 
@@ -24,13 +24,13 @@ git_remote_ahead_behind() {
 # $ZSH_THEME_GIT_PROMPT_REBASING, or $ZSH_THEME_GIT_PROMPT_BISECTING respectively.
 git_merge_state() {
 	git_dir=$(command git rev-parse --git-dir 2>/dev/null)
-	if [[ -e "$git_dir/MERGE_HEAD" ]]
+	if [[ -e "${git_dir}/MERGE_HEAD" ]]
 	then
 		echo "$ZSH_THEME_GIT_PROMPT_MERGING"
-	elif [[ -e "$git_dir/rebase-merge" || -e "$git_dir/rebase-apply" ]]
+	elif [[ -e "${git_dir}/rebase-merge" || -e "${git_dir}/rebase-apply" ]]
 	then
 		echo "$ZSH_THEME_GIT_PROMPT_REBASING"
-	elif [[ -e "$git_dir/BISECT_LOG" ]]
+	elif [[ -e "${git_dir}/BISECT_LOG" ]]
 	then
 		echo "$ZSH_THEME_GIT_PROMPT_BISECTING"
 	fi
@@ -39,6 +39,15 @@ git_merge_state() {
 function git_prompt_info_extra() {
 	ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
 	ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-	git_prompt_info="${ref#refs/heads/}$(parse_git_dirty)$(git_remote_ahead_behind)$(git_merge_state)"
-	echo "$ZSH_THEME_GIT_PROMPT_PREFIX$git_prompt_info$ZSH_THEME_GIT_PROMPT_SUFFIX"
+
+	git_info="%{$FG[011]%}${ref#refs/heads/}"
+	merge_state=$(git_merge_state)
+	if [[ -n ${merge_state} ]]
+	then
+		git_info="${git_info}${merge_state}"
+	else
+		git_info="${git_info}$(parse_git_dirty)$(git_remote_ahead_behind)"
+	fi
+
+	echo "$ZSH_THEME_GIT_PROMPT_PREFIX${git_info}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
