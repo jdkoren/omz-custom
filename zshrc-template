@@ -48,8 +48,8 @@ ZSH_THEME="jdk"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH_CUSTOM/aliases
-source $ZSH_CUSTOM/prompt
+source $ZSH_CUSTOM/.aliases
+source $ZSH_CUSTOM/.prompt
 
 ### User configuration ###
 
