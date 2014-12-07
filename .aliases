@@ -1,7 +1,7 @@
-# shell
 alias ll='ls -al'
 alias e='echo'
 alias clr="clear"
+alias sz="source ~/.zshrc"
 
 # android
 dump_logcat() {
