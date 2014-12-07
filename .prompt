@@ -36,7 +36,7 @@ git_merge_state() {
 	fi
 }
 
-function git_prompt_info_extra() {
+function parse_git_state() {
 	ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
 	ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
 
