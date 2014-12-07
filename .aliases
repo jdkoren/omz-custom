@@ -1,7 +1,13 @@
+alias sz="source ~/.zshrc"
+
 alias ll='ls -al'
+alias lh='ls -dl .*' # show hidden files/directories only
+alias lsd='ls -ahlG'
+alias filecount='find . -type f | wc -l' # number of files (not directories)
+
 alias e='echo'
 alias clr="clear"
-alias sz="source ~/.zshrc"
+alias bk='cd $OLDPWD'
 
 # android
 dump_logcat() {
@@ -21,3 +27,22 @@ alias glo="git lola"
 alias r="repo"
 alias rsy="repo sync"
 alias rst="repo status"
+
+# Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
+alias wtf='dmesg'
+alias onoz='cat /var/log/errors.log'
+alias rtfm='man'
+alias visible='echo'
+alias invisible='cat'
+alias moar='more'
+alias icanhas='mkdir'
+alias donotwant='rm'
+alias dowant='cp'
+alias gtfo='mv'
+alias hai='cd'
+alias plz='pwd'
+alias inur='locate'
+alias nomz='ps aux | less'
+alias nomnom='killall'
+alias cya='reboot'
+alias kthxbai='halt'
