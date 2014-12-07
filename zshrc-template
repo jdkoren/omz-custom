@@ -52,6 +52,7 @@ source $ZSH_CUSTOM/.setopt
 source $ZSH_CUSTOM/.aliases
 source $ZSH_CUSTOM/.prompt
 source $ZSH_CUSTOM/.functions
+source $ZSH_CUSTOM/.history
 
 ### User configuration ###
 
