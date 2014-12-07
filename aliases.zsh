@@ -1,4 +1,5 @@
-alias sz="source ~/.zshrc"
+alias sz='source ~/.zshrc'
+#aliases="< $ZSH_CUSTOM/.aliases | grep alias | sed -e 's/alias //' -e 's/=/ = /' | less"
 
 alias ll='ls -al'
 alias lh='ls -dl .*' # show hidden files/directories only
