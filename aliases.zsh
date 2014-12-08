@@ -1,5 +1,7 @@
 alias sz='source ~/.zshrc'
-#aliases="< $ZSH_CUSTOM/.aliases | grep alias | sed -e 's/alias //' -e 's/=/ = /' | less"
+aliases() {
+    < $ZSH_CUSTOM/aliases.zsh | grep "^alias\s" | sed -e 's/alias //' -e 's/=/ = /' | less
+}
 
 alias ll='ls -al'
 alias lh='ls -dl .*' # show hidden files/directories only
@@ -11,12 +13,9 @@ alias clr="clear"
 alias bk='cd $OLDPWD'
 
 # android
-dump_logcat() {
-	adb logcat -v time -d > $1
-}
-alias logcat="adb logcat -v time"
-alias logd=dump_logcat
-alias adb-restart="adb kill-server; adb start-server"
+alias logcat='adb logcat -v time'
+alias logd="adb logcat -v time -d > $1"
+alias adb-restart='adb kill-server; adb start-server'
 
 # git
 alias g="git"
