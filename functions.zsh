@@ -37,7 +37,7 @@ function myip() {
 # http://vikros.tumblr.com/post/23750050330/cute-little-function-time
 define() {
   if [[ $# -ge 2 ]] then
-    echo "givedef: too many arguments" >&2
+    echo "error: too many arguments" >&2
     return 1
   else
     curl "dict://dict.org/d:$1" | less
