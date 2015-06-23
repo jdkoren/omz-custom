@@ -21,7 +21,8 @@ alias adb-restart='adb kill-server; adb start-server'
 alias g="git"
 alias gco="git checkout"
 alias gst="git status"
-alias glo="git lola"
+alias gl="git l" #requires .gitconfig
+alias gll="git ll" #requires .gitconfig
 
 # repo
 alias r="repo"

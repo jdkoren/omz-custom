@@ -1,0 +1,128 @@
+[user]
+	name = jdkoren
+	email = jdkoren@yahoo-inc.com
+[core]
+	excludesfile = /Users/jdkoren/.gitignore_global
+	editor = atom -w
+[color]
+	ui = auto
+[color "branch"]
+	upstream = cyan
+[push]
+	default = upstream
+[merge]
+	conflictstyle = diff3
+
+[alias]
+	# meta
+	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | less
+	#alias = !git config --global --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | less
+	h = help
+
+	# config
+	user = config user.name
+	email = config user.email
+	signkey = config user.signingkey
+	# usage: g set-user name email
+	#set-user = !"f() { git config user.name $1; git config user.email $2; }; f"
+
+	# status
+	st = status
+	stu = status -u # untracked
+	sti = status --ignored
+
+	# log
+	lo = log --decorate --oneline
+	la = log --all --decorate --oneline
+	lg = log --graph --decorate --oneline
+	lag = log --all --graph --oneline --decorate
+	lod = log --decorate --pretty=format:'%C(yellow)%h %C(auto)%d %C(reset)%s %C(cyan)<%an> %C(green)%cr'
+	lad = log --all --decorate --pretty=format:'%C(yellow)%h %C(auto)%d %C(reset)%s %C(cyan)<%an> %C(green)%cr'
+	ls = log --numstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # stat
+	lss = log --shortstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # shortstat
+	l = log --graph --decorate --oneline # copy of lg
+	ll = log --all --graph --decorate --oneline # copy of lag
+
+	# navigate
+	br = !sh -c 'git branch -vv --color $* | grep -v " z-"' -
+	brr = !sh -c 'git branch -vv -r | grep "$1"' - # remote branches
+	rbr = !sh -c 'git branch -vv -r | grep "$1"' - # remote branches
+	co = checkout
+	cob = checkout -b
+	dbr = br -D # delete branch
+	brd = br -D # delete branch
+
+	# stash
+	sa = stash apply
+	sc = stash clear
+	sd = stash drop
+	sl = stash list
+	sp = stash pop
+	ss = stash save
+
+	# inspect
+	df = diff
+	dfs = diff --staged
+	diffn = diff --no-ext-diff
+
+	# stage
+	a = add
+	aa = add .
+	ai = add -i # interactive
+	ap = add -p
+	u = reset HEAD # unadd/unstage
+
+	# commit
+	c = commit
+    cm = commit -m
+    ca = commit -a
+    cam = commit -am
+	cs = commit -S
+	cas = commit -a -S
+	cms = commit -S -m
+	cams = commit -a -S -m
+    amend = commit --amend
+    fixup = commit --amend --no-edit
+    fu = commit --amend --no-edit # fixup
+	vc = verify-commit
+
+	# push, pull
+	purr = pull --rebase
+	pup = push --set-upstream
+	puff = push -f
+
+	# rebase
+	rb = rebase
+    rbi = rebase --interactive
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbs = rebase --skip
+
+	# merge
+	m = merge --no-ff
+	mff = merge --ff-only
+	cp = cherry-pick
+
+	# reset
+	re = reset
+	r1 = reset HEAD^
+    r2 = reset HEAD^^
+    rh = reset --hard
+    rh1 = reset HEAD^ --hard
+    rh2 = reset HEAD^^ --hard
+
+	# remote
+	r = remote
+	rv = remote -v
+	f = fetch
+
+	# bisect
+	bi = bisect
+	big = bisect good
+	bib = bisect bad
+	bis = bisect start HEAD # HEAD is bad, $1 (if present) is good
+	bir = bisect reset
+
+	# "checkout pull request": fetch a pull request and check it out as a local branch
+	# usage: 'git copr 123' checks out pull request #123 as branch 'pr_123'
+	copr = !"f() { git show-ref -q --verify refs/heads/pr_$1; if [ $? -ne 0 ] ; then git fetch origin refs/pull/$1/head:pr_$1; git checkout pr_$1; else git checkout pr_$1; git pull --rebase origin refs/pull/$1/head; fi; }; f"
