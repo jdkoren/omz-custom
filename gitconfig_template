@@ -1,9 +1,9 @@
 [user]
-	name = jdkoren
-	email = jdkoren@yahoo-inc.com
+	name = Jonathan Koren
+	email = jdkoren@
 [core]
 	excludesfile = /Users/jdkoren/.gitignore_global
-	editor = atom -w
+	editor = edit --wait
 [color]
 	ui = auto
 [color "branch"]
@@ -12,11 +12,16 @@
 	default = upstream
 [merge]
 	conflictstyle = diff3
+[rebase]
+	autosquash = true
+[diff]
+	algorithm = patience
+[rerere]
+	enabled = true
 
 [alias]
 	# meta
 	alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | less
-	#alias = !git config --global --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | less
 	h = help
 
 	# config
@@ -40,6 +45,8 @@
 	lad = log --all --decorate --pretty=format:'%C(yellow)%h %C(auto)%d %C(reset)%s %C(cyan)<%an> %C(green)%cr'
 	ls = log --numstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # stat
 	lss = log --shortstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # shortstat
+	lm = log --all --decorate --oneline --merges
+	lmg = log --all --graph --decorate --oneline --merges
 	l = log --graph --decorate --oneline # copy of lg
 	ll = log --all --graph --decorate --oneline # copy of lag
 
@@ -49,8 +56,8 @@
 	rbr = !sh -c 'git branch -vv -r | grep "$1"' - # remote branches
 	co = checkout
 	cob = checkout -b
-	dbr = br -D # delete branch
-	brd = br -D # delete branch
+	dbr = branch -D # delete branch
+	brd = branch -D # delete branch
 
 	# stash
 	sa = stash apply
@@ -101,6 +108,8 @@
 	# merge
 	m = merge --no-ff
 	mff = merge --ff-only
+	mnc = merge --no-ff --no-commit
+	mp = merge -s recursive -X patience
 	cp = cherry-pick
 
 	# reset
@@ -122,6 +131,7 @@
 	bib = bisect bad
 	bis = bisect start HEAD # HEAD is bad, $1 (if present) is good
 	bir = bisect reset
+	bil = bisect log
 
 	# "checkout pull request": fetch a pull request and check it out as a local branch
 	# usage: 'git copr 123' checks out pull request #123 as branch 'pr_123'
