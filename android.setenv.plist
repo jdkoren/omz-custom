@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+  <!-- Copy to ~/Library/LaunchAgents/android.setenv.plist, then log in again. -->
+
+  <key>Label</key>
+  <string>android.setenv</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>/bin/launchctl setenv \
+            ANDROID_HOME "${HOME}/android-sdk-macosx" \
+            ANDROID_NDK_HOME "${HOME}/android-ndk-r10e" \
+            JAVA6_HOME "`/usr/libexec/java_home -v 1.6`" \
+            JAVA7_HOME "`/usr/libexec/java_home -v 1.7`" \
+            JAVA8_HOME "`/usr/libexec/java_home -v 1.8`" \
+            JAVA_HOME "`/usr/libexec/java_home -v 1.8`" \
+    </string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>ServiceIPC</key>
+  <false/>
+
+</dict>
+</plist>
