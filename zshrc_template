@@ -59,16 +59,14 @@ source $ZSH_CUSTOM/history.zsh
 export JAVA6_HOME=$(/usr/libexec/java_home -v1.6)
 export JAVA7_HOME=$(/usr/libexec/java_home -v1.7)
 export JAVA8_HOME=$(/usr/libexec/java_home -v1.8)
-
+export JAVA_HOME=$JAVA7_HOME
 alias java6='export JAVA_HOME=$JAVA6_HOME'
 alias java7='export JAVA_HOME=$JAVA7_HOME'
 alias java8='export JAVA_HOME=$JAVA8_HOME'
 
-export JAVA_HOME=$JAVA7_HOME
-
 export PATH=$PATH:$HOME/bin:/usr/local/bin
 
-# local aliases
+alias gitdir="git rev-parse --git-dir"
 
 ### End user configuration ###
 
