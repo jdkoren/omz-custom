@@ -1,3 +1,13 @@
+# append elements to PATH
+append_path () {
+	appendee=""
+	for var in $@
+	do
+		appendee="$appendee:$var"
+	done
+	export PATH=$PATH$appendee
+}
+
 # compressed file extractor
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
 extract() {

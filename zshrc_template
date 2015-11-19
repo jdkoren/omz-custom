@@ -64,8 +64,24 @@ alias java6='export JAVA_HOME=$JAVA6_HOME'
 alias java7='export JAVA_HOME=$JAVA7_HOME'
 alias java8='export JAVA_HOME=$JAVA8_HOME'
 
-export PATH=$PATH:$HOME/bin:/usr/local/bin
+# Update PATH once. Save the original in case something happens.
+if [ -z "$set_path" ]
+then
+	export ORIG_PATH=$PATH
+	export set_path="true"
+	#append_path <args>
+fi
 
+# Reset PATH to what it was before this file was sourced
+reset_path () {
+	if [ -n "$ORIG_PATH" ]
+	then
+		echo "ORIG_PATH = '$ORIG_PATH'"
+		export PATH=$ORIG_PATH
+		unset ORIG_PATH
+		unset set_path
+	fi
+}
 
 ### End user configuration ###
 
