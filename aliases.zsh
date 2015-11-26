@@ -15,7 +15,7 @@ alias bk='cd $OLDPWD'
 # android
 alias logcat='adb logcat -v time'
 alias logd="adb logcat -v time -d > $1"
-alias adb-restart='adb kill-server; adb start-server'
+alias adbr='adb kill-server; adb start-server'
 
 # git
 alias g="git"
