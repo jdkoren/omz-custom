@@ -30,6 +30,9 @@ git_merge_state() {
 	elif [[ -e "${git_dir}/rebase-merge" || -e "${git_dir}/rebase-apply" ]]
 	then
 		echo "$ZSH_THEME_GIT_PROMPT_REBASING"
+	elif [[ -e "${git_dir}/CHERRY_PICK_HEAD" ]]
+	then
+		echo "$ZSH_THEME_GIT_PROMPT_CHERRYPICKING"
 	elif [[ -e "${git_dir}/BISECT_LOG" ]]
 	then
 		echo "$ZSH_THEME_GIT_PROMPT_BISECTING"
