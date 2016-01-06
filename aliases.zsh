@@ -24,6 +24,7 @@ alias gst="git status"
 alias gl="git l" #requires .gitconfig
 alias gll="git ll" #requires .gitconfig
 alias gitdir="git rev-parse --git-dir"
+alias gitroot="git rev-parse --show-toplevel"
 
 # repo
 alias r="repo"
