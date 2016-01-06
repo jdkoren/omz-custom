@@ -30,6 +30,9 @@ alias r="repo"
 alias rsy="repo sync"
 alias rst="repo status"
 
+# Mac OSX fix bluetooth audio quality
+alias fixbt="defaults write com.apple.BluetoothAudioAgent \"Apple Bitpool Min (editable)\" 53"
+
 # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 alias wtf='dmesg'
 alias onoz='cat /var/log/errors.log'
