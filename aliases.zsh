@@ -12,12 +12,12 @@ alias e='echo'
 alias clr="clear"
 alias bk='cd $OLDPWD'
 
-# android
+### android
 alias logcat='adb logcat -v time'
 alias logd="adb logcat -v time -d > $1"
 alias adbr='adb kill-server; adb start-server'
 
-# git
+###git
 alias g="git"
 alias gco="git checkout"
 alias gst="git status"
@@ -26,15 +26,19 @@ alias gll="git ll" #requires .gitconfig
 alias gitdir="git rev-parse --git-dir"
 alias gitroot="git rev-parse --show-toplevel"
 
-# repo
+### repo
 alias r="repo"
 alias rsy="repo sync"
 alias rst="repo status"
 
-# Mac OSX fix bluetooth audio quality
+### Mac OSX
+# fix bluetooth audio quality
 alias fixbt="defaults write com.apple.BluetoothAudioAgent \"Apple Bitpool Min (editable)\" 53"
+# turn on/off keyboard accent menu
+alias accenton="defaults write -g ApplePressAndHoldEnabled -bool true"
+alias accentoff="defaults write -g ApplePressAndHoldEnabled -bool false"
 
-# Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
+### Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 alias wtf='dmesg'
 alias onoz='cat /var/log/errors.log'
 alias rtfm='man'
