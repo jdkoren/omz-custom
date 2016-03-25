@@ -18,6 +18,7 @@
     algorithm = patience
 [rerere]
     enabled = true
+    autoupdate = true
 
 [alias]
     # meta
