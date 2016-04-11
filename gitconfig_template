@@ -78,7 +78,10 @@
     aa = "!f() { git add `git rev-parse --show-toplevel`; }; f" # add all, not add .
     ai = add -i # interactive
     ap = add -p
+    an = add -N
+    aan = "!f() { git add -N `git rev-parse --show-toplevel`; }; f" # add -N all, not add -N .
     u = reset HEAD # unadd/unstage
+    up = reset -p
 
     # commit
     c = commit
@@ -89,6 +92,8 @@
     cas = commit -a -S
     cms = commit -S -m
     cams = commit -a -S -m
+    csq = commit --squash
+    cfu = commit --fixup
     amend = commit --amend
     fixup = commit --amend --no-edit
     fu = commit --amend --no-edit # fixup
@@ -98,6 +103,7 @@
     purr = pull --rebase
     pup = push --set-upstream
     puff = push -f
+    pnv = push --no-verify
 
     # rebase
     rb = rebase
@@ -140,3 +146,15 @@
     # "checkout pull request": fetch a pull request and check it out as a local branch
     # usage: 'git copr 123' checks out pull request #123 as branch 'pr_123'
     copr = !"f() { git show-ref -q --verify refs/heads/pr_$1; if [ $? -ne 0 ] ; then git fetch origin refs/pull/$1/head:pr_$1; git checkout pr_$1; else git checkout pr_$1; git pull --rebase origin refs/pull/$1/head; fi; }; f"
+
+    # commit info where file was added
+    whoadded = log --follow --diff-filter=A --
+    # commit info where file was removed
+    whoremoved = log --follow --diff-filter=D --
+
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+
+    # log commits to be added if merging with $1
+    lup = !git merge-base HEAD $1 | git lo $1..
