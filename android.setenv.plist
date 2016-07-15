@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
 
-  <!-- Copy to ~/Library/LaunchAgents/android.setenv.plist, then log in again. -->
+  <!-- Copy to ~/Library/LaunchAgents/android.setenv.plist, edit the paths below,
+       then log in again. If the changes don't take, open a terminal and run
+       `launchctl load -w ~/Library/LaunchAgents/android.setenv.plist`
+  -->
 
   <key>Label</key>
   <string>android.setenv</string>
@@ -12,13 +15,13 @@
   <array>
     <string>/bin/bash</string>
     <string>-c</string>
-    <string>/bin/launchctl setenv \
-            ANDROID_HOME "${HOME}/android-sdk-macosx" \
-            ANDROID_NDK_HOME "${HOME}/android-ndk-r10e" \
-            JAVA6_HOME "`/usr/libexec/java_home -v 1.6`" \
-            JAVA7_HOME "`/usr/libexec/java_home -v 1.7`" \
-            JAVA8_HOME "`/usr/libexec/java_home -v 1.8`" \
-            JAVA_HOME "`/usr/libexec/java_home -v 1.8`" \
+    <string>
+    launchctl setenv ANDROID_HOME "${HOME}/android-sdk-macosx"
+    launchctl setenv ANDROID_NDK_HOME "${HOME}/android-ndk-r10e"
+    launchctl setenv JAVA6_HOME "`/usr/libexec/java_home -v 1.6`"
+    launchctl setenv JAVA7_HOME "`/usr/libexec/java_home -v 1.7`"
+    launchctl setenv JAVA8_HOME "`/usr/libexec/java_home -v 1.8`"
+    launchctl setenv JAVA_HOME "`/usr/libexec/java_home -v 1.8`"
     </string>
   </array>
 
