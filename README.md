@@ -3,10 +3,11 @@ omz-custom
 
 My oh-my-zsh customizations.
 
+0. Install git, setup ssh keys
 1. Install oh my zsh (http://ohmyz.sh/)
 2. Inside ~/.oh-my-zsh/custom, create a new folder
 ```
-cd ~/.oh-my-zsh/custom`
+cd ~/.oh-my-zsh/custom
 mkdir jdk
 ```
 3. Clone this repo inside the folder created in 2
