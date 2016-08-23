@@ -56,10 +56,12 @@ source $ZSH_CUSTOM/history.zsh
 
 ### User configuration ###
 
-export JAVA6_HOME=$(/usr/libexec/java_home -v1.6)
-export JAVA7_HOME=$(/usr/libexec/java_home -v1.7)
-export JAVA8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_HOME=$JAVA7_HOME
+# Uncomment if you are not using the launch agent to set them
+# (see android.setenv.plist)
+# export JAVA6_HOME=$(/usr/libexec/java_home -v1.6)
+# export JAVA7_HOME=$(/usr/libexec/java_home -v1.7)
+# export JAVA8_HOME=$(/usr/libexec/java_home -v1.8)
+# export JAVA_HOME=$JAVA7_HOME
 alias java6='export JAVA_HOME=$JAVA6_HOME'
 alias java7='export JAVA_HOME=$JAVA7_HOME'
 alias java8='export JAVA_HOME=$JAVA8_HOME'
