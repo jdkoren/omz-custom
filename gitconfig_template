@@ -3,7 +3,9 @@
     email = jdkoren@FIXME
 [core]
     excludesfile = /Users/jdkoren/.gitignore_global
-    editor = edit --wait
+    # For TextWrangler: editor = edit --wait
+    # For BBEdit: editor = bbedit --wait --resume
+    # For gedit: editor = gedit -w -s
 [color]
     ui = auto
 [color "branch"]
