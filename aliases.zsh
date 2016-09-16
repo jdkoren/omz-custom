@@ -41,6 +41,7 @@ alias accentoff="defaults write -g ApplePressAndHoldEnabled -bool false"
 ### Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 alias wtf='dmesg'
 alias onoz='cat /var/log/errors.log'
+alias halp='man'
 alias rtfm='man'
 alias visible='echo'
 alias invisible='cat'
