@@ -1,11 +1,13 @@
+# join arguments using $1 as separator, e.g. `join_by , a b c` returns "a,b,c"
+function join_by {
+    local IFS="$1";
+    shift;
+    echo "$*";
+}
+
 # append elements to PATH
 append_path () {
-	appendee=""
-	for var in $@
-	do
-		appendee="$appendee:$var"
-	done
-	export PATH=$PATH$appendee
+    export PATH=$PATH:$(join_by : $@)
 }
 
 # compressed file extractor
