@@ -46,11 +46,11 @@
     lag = log --all --graph --oneline --decorate
     lod = log --decorate --pretty=format:'%C(yellow)%h %C(auto)%d %C(reset)%s %C(cyan)<%an> %C(green)%cr'
     lad = log --all --decorate --pretty=format:'%C(yellow)%h %C(auto)%d %C(reset)%s %C(cyan)<%an> %C(green)%cr'
-    ls = log --numstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # stat
+    lst = log --numstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # stat
     lss = log --shortstat --no-merges --pretty=format:'%C(yellow)%h %C(reset)%s %C(cyan)<%an> %C(green)%cr%C(white)' # shortstat
     lm = log --all --decorate --oneline --merges
     lmg = log --all --graph --decorate --oneline --merges
-    l = log --graph --decorate --oneline # copy of lg
+    l = log --graph --decorate --oneline # copy of la
     ll = log --all --graph --decorate --oneline # copy of lag
 
     # navigate
