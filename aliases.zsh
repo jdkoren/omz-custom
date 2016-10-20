@@ -3,9 +3,9 @@ aliases() {
     < $ZSH_CUSTOM/aliases.zsh | grep "^alias\s" | sed -e 's/alias //' -e 's/=/ = /' | less
 }
 
-alias ll='ls -al'
+alias l='ls -alhG'
+alias ll='ls -alhG'
 alias lh='ls -dl .*' # show hidden files/directories only
-alias lsd='ls -ahlG'
 alias filecount='find . -type f | wc -l' # number of files (not directories)
 
 alias e='echo'
@@ -17,7 +17,7 @@ alias logcat='adb logcat -v time'
 alias logd="adb logcat -v time -d > $1"
 alias adbr='adb kill-server; adb start-server'
 
-###git
+### git
 alias g="git"
 alias gco="git checkout"
 alias gst="git status"
