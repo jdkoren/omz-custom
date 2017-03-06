@@ -1,4 +1,5 @@
 alias sz='source ~/.zshrc'
+alias rpsz='reset_path && sz'
 aliases() {
     < $ZSH_CUSTOM/aliases.zsh | grep "^alias\s" | sed -e 's/alias //' -e 's/=/ = /' | less
 }
