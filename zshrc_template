@@ -66,6 +66,8 @@ alias java6='export JAVA_HOME=$JAVA6_HOME'
 alias java7='export JAVA_HOME=$JAVA7_HOME'
 alias java8='export JAVA_HOME=$JAVA8_HOME'
 
+# export ANDROID_HOME=(~/android-sdk-xxx)
+
 # Update PATH once. Save the original in case something happens.
 if [ -z "$set_path" ]
 then
