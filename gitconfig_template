@@ -145,6 +145,9 @@
     bir = bisect reset
     bil = bisect log
 
+    # submodules
+    sur = submodule update --recursive --remote
+
     # "checkout pull request": fetch a pull request and check it out as a local branch
     # usage: 'git copr 123' checks out pull request #123 as branch 'pr_123'
     copr = !"f() { git show-ref -q --verify refs/heads/pr_$1; if [ $? -ne 0 ] ; then git fetch origin refs/pull/$1/head:pr_$1; git checkout pr_$1; else git checkout pr_$1; git pull --rebase origin refs/pull/$1/head; fi; }; f"
