@@ -15,6 +15,7 @@
 [merge]
     conflictstyle = diff3
 [rebase]
+    abbreviateCommands = true
     autosquash = true
 [diff]
     algorithm = patience
@@ -146,7 +147,7 @@
     bil = bisect log
 
     # submodules
-    sur = submodule update --recursive --remote
+    smu = submodule update --recursive --remote
 
     # "checkout pull request": fetch a pull request and check it out as a local branch
     # usage: 'git copr 123' checks out pull request #123 as branch 'pr_123'
