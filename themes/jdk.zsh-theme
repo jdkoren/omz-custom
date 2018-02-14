@@ -17,10 +17,12 @@ ZSH_THEME_HG_PROMPT_CLEAN=""
 
 ZSH_SPECTRUM_TEXT="To iterate is human; to recurse, divine"
 
+ZSH_THEME_REPO_NAME_COLOR="%{$FG[011]%}"
+
 # See http://geoff.greer.fm/lscolors/
 export LSCOLORS="gxagfxfacxbabagegchchd"
 export LS_COLORS="di=36:ln=30;46:so=35:pi=35;40:ex=32:bd=31;40:cd=31;40:su=36;44:sg=36;42:tw=37;42:ow=37;43"
 
 local status_indicator="%(?|%{$FG[010]%}%# |%{$FG[009]%}%# )"
 PROMPT="%B%{$FG[045]%}%n %{$FG[011]%}%~$status_indicator%{$reset_color%}%B"
-RPROMPT='%{$FG[011]%}$(parse_git_state)$(hg_prompt_info)%{$reset_color%}'
+RPROMPT='$(git_prompt_info_jdk)$(hg_prompt_info_jdk)%{$reset_color%}'

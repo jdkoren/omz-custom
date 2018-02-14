@@ -1,4 +1,4 @@
-# get the difference between the local and remote branches
+# Get the difference between the current branch and its remote tracking branch
 git_remote_ahead_behind() {
     remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
     if [[ -n ${remote} ]] ; then
@@ -39,11 +39,12 @@ git_merge_state() {
     fi
 }
 
-function parse_git_state() {
+# Report the current state of the Git repo
+git_prompt_info_jdk() {
     ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
     ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
 
-    git_info="%{$FG[011]%}${ref#refs/heads/}"
+    git_info="${ref#refs/heads/}"
     merge_state=$(git_merge_state)
     if [[ -n ${merge_state} ]]
     then
@@ -52,5 +53,43 @@ function parse_git_state() {
         git_info="${git_info}$(parse_git_dirty)$(git_remote_ahead_behind)"
     fi
 
-    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${git_info}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+    echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR${git_info}$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_GIT_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
+}
+
+# Replacement for hg_get_branch_name
+hg_get_rev_name() {
+    if [ $(in_hg) ]
+    then
+        # prefer current bookmark first
+        local _NAME=$(hg id --template "{currentbookmark}")
+        local _SUFFIX=
+        if [ -z ${_NAME} ]; then
+            # Next prefer an inactive bookmark
+            _NAME=$(hg id -B | cut -d " " -f 1)
+            _SUFFIX="(inactive)"
+        fi
+        if [ -z ${_NAME} ]; then
+            # Next prefer a tag
+            _NAME=$(hg id -t | cut -d " " -f 1)
+            _SUFFIX="(tag)"
+        fi
+        if [ -z ${_NAME} ]
+        then
+             # Finally just use the revision id
+            _NAME=$(hg id -i)
+            _SUFFIX=
+        fi
+
+        echo "${_NAME}${_SUFFIX}"
+    fi
+}
+
+# Report the current state of the Mercurial repo
+hg_prompt_info_jdk() {
+    if [ $(in_hg) ]
+    then
+        _DISPLAY=$(hg_get_rev_name)
+        echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_HG_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR$_DISPLAY$ZSH_PROMPT_BASE_COLOR$(hg_dirty)$ZSH_THEME_HG_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
+        unset _DISPLAY
+    fi
 }
