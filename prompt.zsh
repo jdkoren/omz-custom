@@ -62,25 +62,22 @@ hg_get_rev_name() {
     then
         # prefer current bookmark first
         local _NAME=$(hg id --template "{currentbookmark}")
-        local _SUFFIX=
-        if [ -z ${_NAME} ]; then
-            # Next prefer an inactive bookmark
-            _NAME=$(hg id -B | cut -d " " -f 1)
-            _SUFFIX="(inactive)"
-        fi
-        if [ -z ${_NAME} ]; then
+#        if [ -z ${_NAME} ]; then
+#            # Next prefer an inactive bookmark
+#            _NAME=$(hg id -B | cut -d " " -f 1)
+#        fi
+        if [ -z "${_NAME}" ]; then
             # Next prefer a tag
             _NAME=$(hg id -t | cut -d " " -f 1)
-            _SUFFIX="(tag)"
         fi
-        if [ -z ${_NAME} ]
+        if [ -z "${_NAME}" ]
         then
              # Finally just use the revision id
             _NAME=$(hg id -i)
-            _SUFFIX=
         fi
 
-        echo "${_NAME}${_SUFFIX}"
+        echo "${_NAME}"
+
     fi
 }
 
