@@ -1,11 +1,11 @@
 [user]
     name = Jonathan Koren
-    email = jdkoren@FIXME
 [core]
     excludesfile = /Users/jdkoren/.gitignore_global
     # For TextWrangler: editor = edit --wait
     # For BBEdit: editor = bbedit --wait --resume
     # For gedit: editor = gedit -w -s
+    # For sublime: editor = subl -n -w
 [color]
     ui = auto
 [color "branch"]

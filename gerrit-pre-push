@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# A hook script to verify what is about to be pushed to Gerrit. Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed. If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+#
+# This script prevents pushing commits where the log message starts with "WIP"
+# (work in progress) or "stash" if the remote ref begins with "refs/for/".
+
+remote="$1"
+url="$2"
+
+z40=0000000000000000000000000000000000000000
+
+while read local_ref local_sha remote_ref remote_sha
+do
+  # Handle delete
+  if [ "$local_sha" = "$z40" ]
+  then
+    echo "$local_ref, $remote_ref"
+    :
+  # Move along if we don't match refs/for/
+  elif [[ ! "$remote_ref" =~ ^refs/for/.+ ]]
+  then
+    echo "$local_ref, $remote_ref"
+    :
+  else
+    echo "$local_ref, $local_sha, $remote_ref, $remote_sha"
+    if [ "$remote_sha" = "$z40" ]
+    then
+      # New branch, examine all commits
+      branchname="${remote_ref#refs/for/}"
+      if git check-ref-format --allow-onelevel "$branchname"
+      then
+        range="${remote}/${branchname}..$local_sha"
+      fi
+
+      if [ -z "$range" ]
+      then
+        range="$local_sha"
+      fi
+    else
+      # Update to existing branch, examine new commits
+      range="$remote_sha..$local_sha"
+    fi
+
+    echo "Examining $range"
+    
+    # Check for WIP/stash commit
+    commit=`git rev-list -n 1 -i --grep '^WIP' --grep '^stash' "$range"`
+    if [ -n "$commit" ]
+    then
+      echo >&2 "Found WIP/stash commit in $local_ref, not pushing ($commit)"
+      exit 1
+    fi
+
+    # In case you want to run any verifications
+    run_checks=true
+  fi
+done
+
+if [[ -n "$run_checks" ]]; then
+  : #TODO replace with your checks, e.g. unit tests
+fi
+
+exit 0
