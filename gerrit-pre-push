@@ -27,7 +27,7 @@ z40=0000000000000000000000000000000000000000
 while read local_ref local_sha remote_ref remote_sha
 do
   # Handle delete
-  if [ "$local_sha" = "$z40" ]
+  if [[ "$local_sha" = "$z40" ]]
   then
     echo "$local_ref, $remote_ref"
     :
@@ -38,16 +38,27 @@ do
     :
   else
     echo "$local_ref, $local_sha, $remote_ref, $remote_sha"
-    if [ "$remote_sha" = "$z40" ]
+    if [[ "$remote_sha" = "$z40" ]]
     then
       # New branch, examine all commits
       branchname="${remote_ref#refs/for/}"
+
+      if [[ "$branchname" =~ % ]]
+      then
+        # Gerrit allows various push-options by appending them to the remote
+        # using "%<option>=<string>[,<option>=<string>...]". Strip this off.
+        # TODO: '%' is a valid character in branch names, so this could mangle
+        # the branch name. We should find a way to workaround that.
+        echo "NOTE: stripping Gerrit push-options beginning at '%'"
+        branchname=${branchname%%\%*}
+      fi
+
       if git check-ref-format --allow-onelevel "$branchname"
       then
         range="${remote}/${branchname}..$local_sha"
       fi
 
-      if [ -z "$range" ]
+      if [[ -z "$range" ]]
       then
         range="$local_sha"
       fi
@@ -60,7 +71,7 @@ do
     
     # Check for WIP/stash commit
     commit=`git rev-list -n 1 -i --grep '^WIP' --grep '^stash' "$range"`
-    if [ -n "$commit" ]
+    if [[ -n "$commit" ]]
     then
       echo >&2 "Found WIP/stash commit in $local_ref, not pushing ($commit)"
       exit 1
