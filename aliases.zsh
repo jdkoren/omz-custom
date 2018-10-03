@@ -26,6 +26,9 @@ alias gl="git l" #requires .gitconfig
 alias gll="git ll" #requires .gitconfig
 alias gitdir="git rev-parse --git-dir"
 alias gitroot="git rev-parse --show-toplevel"
+alias gfo="git fetch origin"
+alias gfj="git fetch jdkoren"
+alias gfg="git fetch goog"
 
 ### repo
 alias r="repo"
