@@ -90,3 +90,7 @@ hg_prompt_info_jdk() {
         unset _DISPLAY
     fi
 }
+
+all_prompt_info_jdk() {
+    echo $(git_prompt_info_jdk)$(hg_prompt_info_jdk)
+}
