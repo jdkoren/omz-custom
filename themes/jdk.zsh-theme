@@ -25,7 +25,7 @@ ZSH_THEME_REPO_NAME_COLOR="%F{011}"
 export LSCOLORS="gxagfxfacxbabagegchchd"
 export LS_COLORS="di=36:ln=30;46:so=35:pi=35;40:ex=32:bd=31;40:cd=31;40:su=36;44:sg=36;42:tw=37;42:ow=37;43"
 
-local status_indicator="%(?|%K{010}|%K{009})%F{000}%(!.#.$)%{$reset_font%}"
+local status_indicator="%B%(?|%F{010}|%F{009})⮩ %{$reset_font%}"
 
 PROMPT='%B%F{045}%n %F{011}%~ $(all_prompt_info_jdk)
-$status_indicator ' # end space intentional
+$status_indicator%(!.#.$) ' # end space intentional
