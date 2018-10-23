@@ -35,12 +35,7 @@ alias r="repo"
 alias rsy="repo sync"
 alias rst="repo status"
 
-### Mac OSX
-# fix bluetooth audio quality
-alias fixbt="defaults write com.apple.BluetoothAudioAgent \"Apple Bitpool Min (editable)\" 53"
-# turn on/off keyboard accent menu
-alias accenton="defaults write -g ApplePressAndHoldEnabled -bool true"
-alias accentoff="defaults write -g ApplePressAndHoldEnabled -bool false"
+alias utsl='man' # http://www.hacker-dictionary.com/terms/UTSL
 
 ### Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
 alias wtf='dmesg'
@@ -61,3 +56,13 @@ alias nomz='ps aux | less'
 alias nomnom='killall'
 alias cya='reboot'
 alias kthxbai='halt'
+
+### Mac OSX
+if [[ $(uname) = 'Darwin' ]]
+then
+    # fix bluetooth audio quality
+    alias fixbt="defaults write com.apple.BluetoothAudioAgent \"Apple Bitpool Min (editable)\" 53"
+    # turn on/off keyboard accent menu
+    alias accenton="defaults write -g ApplePressAndHoldEnabled -bool true"
+    alias accentoff="defaults write -g ApplePressAndHoldEnabled -bool false"
+fi
