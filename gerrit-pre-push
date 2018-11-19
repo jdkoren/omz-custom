@@ -1,6 +1,18 @@
 #!/bin/sh
-
-# A hook script to verify what is about to be pushed to Gerrit. Called by "git
+#
+# This script prevents pushing commits where the log message starts with "WIP"
+# (work in progress) or "stash" if the remote ref begins with "refs/for/". This
+# prevents incomplete/unwanted commits from inadvertently being pushed to Gerrit
+# instances.
+#
+# Prefer copying this file to your project's ./git/hooks directory (make sure to
+# rename to "pre-push") rather than symlinking. This allows you to modify the
+# block at the end so you can run project-specific checks, like unit tests,
+# before each push.
+#
+# (remaining comments copied from .git/hooks/pre-push.sample)
+#
+# An example hook script to verify what is about to be pushed. Called by "git
 # push" after it has checked the remote status, but before anything has been
 # pushed. If this script exits with a non-zero status nothing will be pushed.
 #
@@ -15,9 +27,6 @@
 # the standard input in the form:
 #
 #   <local ref> <local sha1> <remote ref> <remote sha1>
-#
-# This script prevents pushing commits where the log message starts with "WIP"
-# (work in progress) or "stash" if the remote ref begins with "refs/for/".
 
 remote="$1"
 url="$2"
@@ -68,7 +77,7 @@ do
     fi
 
     echo "Examining $range"
-    
+
     # Check for WIP/stash commit
     commit=`git rev-list -n 1 -i --grep '^WIP' --grep '^stash' "$range"`
     if [[ -n "$commit" ]]

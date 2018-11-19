@@ -1,13 +1,8 @@
 #!/bin/sh
 #
-# An example hook script to verify what is about to be committed.
-# Called by "git commit" with no arguments.  The hook should
-# exit with non-zero status after issuing an appropriate message if
-# it wants to stop the commit.
-#
-# To enable this hook, rename this file to "pre-commit".
+# Git hook that verifies the user has set a proper email address in his or her
+# gitconfig, otherwise exits with an error (aborting the commit).
 
-# Ensure a proper user email is configured
 email=$(git config user.email)
 if [[ ( -z "$email" ) || ( "$email" =~ FIXME ) ]]
 then
