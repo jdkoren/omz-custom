@@ -1,12 +1,12 @@
 # join arguments using $1 as separator, e.g. `join_by , a b c` returns "a,b,c"
-function join_by {
+join_by() {
     local IFS="$1";
     shift;
     echo "$*";
 }
 
 # append elements to PATH
-append_path () {
+append_path() {
     export PATH=$PATH:$(join_by : $@)
 }
 
@@ -37,7 +37,7 @@ extract() {
 }
 
 # my IP address
-function myip() {
+myip() {
   ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
   ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
   ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
@@ -54,4 +54,30 @@ define() {
   else
     curl "dict://dict.org/d:$1" | less
   fi
+}
+
+# Configures a git repo for gerrit by adding some git hooks
+gerrit-init() {
+    gitdir=`git rev-parse --git-dir` 2>/dev/null
+    if [ "$?" -ne 0 ]
+    then
+        echo "ERROR: Not a git repository"
+        return 1
+    fi
+
+    # get commit-msg hook
+    echo "Copying commit-msg hook to ${gitdir}/hooks"
+    curl -sSLo ${gitdir}/hooks/commit-msg \
+        https://gerrit-review.googlesource.com/tools/hooks/commit-msg \
+        && chmod +x ${gitdir}/hooks/commit-msg
+
+    # copy pre-push hook
+    echo "Copying pre-push hook to ${gitdir}/hooks"
+    cp ${ZSH_CUSTOM}/gerrit-pre-push ${gitdir}/hooks/pre-push \
+        && chmod +x ${gitdir}/hooks/pre-push
+
+    # copy pre-push hook
+    echo "Copying pre-commit hook to ${gitdir}/hooks"
+    cp ${ZSH_CUSTOM}/gerrit-pre-commit ${gitdir}/hooks/pre-commit \
+        && chmod +x ${gitdir}/hooks/pre-commit
 }
