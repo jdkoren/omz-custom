@@ -11,10 +11,10 @@
 email=$(git config user.email)
 if [[ ( -z "$email" ) || ( "$email" =~ FIXME ) ]]
 then
-	cat <<EOF
+    cat <<EOF
 Error: You have not specified a proper email address. Current email is "$email".
 
 Please run \`git config [--global] user.email <your_email>\` to supply a value.
 EOF
-	exit 1
+    exit 1
 fi

@@ -48,11 +48,6 @@ ZSH_THEME="jdk"
 plugins=(git mercurial)
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH_CUSTOM/setopt.zsh
-source $ZSH_CUSTOM/aliases.zsh
-source $ZSH_CUSTOM/prompt.zsh
-source $ZSH_CUSTOM/functions.zsh
-source $ZSH_CUSTOM/history.zsh
 
 ### User configuration ###
 
@@ -71,20 +66,20 @@ alias java8='export JAVA_HOME=$JAVA8_HOME'
 # Update PATH once. Save the original in case something happens.
 if [ -z "$set_path" ]
 then
-	export ORIG_PATH=$PATH
-	export set_path="true"
-	#append_path <args>
+    export ORIG_PATH=$PATH
+    export set_path="true"
+    #append_path <args>
 fi
 
 # Reset PATH to what it was before this file was sourced
 reset_path () {
-	if [ -n "$ORIG_PATH" ]
-	then
-		echo "ORIG_PATH = '$ORIG_PATH'"
-		export PATH=$ORIG_PATH
-		unset ORIG_PATH
-		unset set_path
-	fi
+    if [ -n "$ORIG_PATH" ]
+    then
+        echo "ORIG_PATH = '$ORIG_PATH'"
+        export PATH=$ORIG_PATH
+        unset ORIG_PATH
+        unset set_path
+    fi
 }
 
 ### End user configuration ###
