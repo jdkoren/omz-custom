@@ -1,0 +1,44 @@
+
+[ui]
+username = jdkoren
+merge = internal:merge3
+editor = subl -n -w
+
+[extensions]
+strip =
+journal =
+purge =
+
+[pager]
+ignore = status, version
+
+[histedit]
+abbreviateCommands = true
+
+[trainingwheels]
+prevent-revert--all=false
+
+[alias]
+alias = !hg config | grep 'alias\.' | sed 's/alias\.\([^=]*\)=\(.*\)/\1\	=> \2/' | less
+
+df = diff -g
+show = log -pr
+
+bm = bookmark
+bmd = bookmark -d
+
+a = add
+c = commit
+cm = commit -m
+ci = commit -i
+h = help --verbose
+
+rb = rebase
+rbc = rebase --continue
+rba = rebase --abort
+rbi = rebase --interactive
+rbr = resolve --mark
+rbra = resolve -a
+
+mine = resolve -t internal:local
+theirs = resolve -t internal:other
