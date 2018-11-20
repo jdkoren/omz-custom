@@ -28,7 +28,7 @@ ZSH_THEME="jdk"
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
+# Uncomment the following line to display red dots while waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -39,9 +39,9 @@ ZSH_THEME="jdk"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Which plugins do we load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
@@ -51,35 +51,39 @@ source $ZSH/oh-my-zsh.sh
 
 ### User configuration ###
 
-# Uncomment if you are not using the launch agent to set them
-# (see android.setenv.plist)
-# export JAVA6_HOME=$(/usr/libexec/java_home -v1.6)
-# export JAVA7_HOME=$(/usr/libexec/java_home -v1.7)
-# export JAVA8_HOME=$(/usr/libexec/java_home -v1.8)
-# export JAVA_HOME=$JAVA7_HOME
-alias java6='export JAVA_HOME=$JAVA6_HOME'
-alias java7='export JAVA_HOME=$JAVA7_HOME'
-alias java8='export JAVA_HOME=$JAVA8_HOME'
-
-# export ANDROID_HOME=(~/android-sdk-xxx)
-
-# Update PATH once. Save the original in case something happens.
-if [ -z "$set_path" ]
-then
-    export ORIG_PATH=$PATH
-    export set_path="true"
-    #append_path <args>
-fi
+# Theme var that stores the PATH before any user configurations modify it.
+# sub-scripts are obliged NOT to change this.
+declare ZSH_THEME_ORIG_PATH="$PATH"
 
 # Reset PATH to what it was before this file was sourced
 reset_path () {
-    if [ -n "$ORIG_PATH" ]
-    then
-        echo "ORIG_PATH = '$ORIG_PATH'"
-        export PATH=$ORIG_PATH
-        unset ORIG_PATH
-        unset set_path
+    if [[ -n "$ZSH_THEME_ORIG_PATH" ]]; then
+        echo "Resetting PATH to \"$ZSH_THEME_ORIG_PATH\""
+        export PATH=$ZSH_THEME_ORIG_PATH
     fi
+}
+
+# Function that sub-scripts can use to determine if this is the first time zsh
+# is being sourced.
+is_first_source() {
+    [[ -z "$ZSH_THEME_FIRST_SOURCE_DONE" ]]
+}
+
+# In case this isn't the first sourcing, remove this function to avoid resets
+# while sub-script is sourcing.
+unset -f reset_zsh 2>/dev/null
+
+# Source local configurations file.
+if [[ -s "$HOME/.zshlocalrc" ]]; then
+    source "$HOME/.zshlocalrc"
+fi
+
+declare ZSH_THEME_FIRST_SOURCE_DONE=true
+
+# Reset zsh so that the next source behaves like the first source.
+reset_zsh() {
+    reset_path
+    unset ZSH_THEME_FIRST_SOURCE_DONE
 }
 
 ### End user configuration ###

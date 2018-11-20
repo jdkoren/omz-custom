@@ -1,8 +1,7 @@
 alias sz='source ~/.zshrc'
-alias rpsz='reset_path && sz'
-aliases() {
-    < $ZSH_CUSTOM/aliases.zsh | grep "^alias\s" | sed -e 's/alias //' -e 's/=/ = /' | less
-}
+alias rsz='reset_zsh && sz'
+
+alias aliases="alias | sed -e 's/=/ = /' | less"
 
 alias l='ls -alhG'
 alias ll='ls -alhG'
