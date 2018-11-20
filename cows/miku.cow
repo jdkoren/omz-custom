@@ -1,0 +1,13 @@
+# Hatsune Miku
+# http://anime.en.utf8art.com/arc/hatsune_miku_26.html
+$the_cow = <<EOC;
+    $thoughts
+     $thoughts
+      /＾>,-―‐‐<＾}
+     /:::/≠´:::::ヽ.
+    /:::〃:::／}:丿ハ
+   /:::i{l|／ ﾉ／ }::}
+  /::::瓜イ-‐　´ ‐,':ﾉ
+ /::::|ﾉﾍ.{､( ﾌ_ノﾉイ　　　おごって♪（テヘペロ)
+/:::::|　／}｀不´} ::
+EOC

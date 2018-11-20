@@ -1,0 +1,14 @@
+# Totoro
+# http://www.ascii-art.de/ascii/ab/anime.txt
+$the_cow = <<EOC;
+       $thoughts
+        $thoughts
+         ,.  ,.
+         ||  ||
+        ,''--''.
+       : (.)(.) :
+      ,'        `.
+      :          :
+      :          :
+      `._nn__nn_,' 
+EOC
