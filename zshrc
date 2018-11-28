@@ -62,6 +62,7 @@ reset_path () {
     if [[ -n "$ZSH_THEME_ORIG_PATH" ]]; then
         echo "Resetting PATH to \"$ZSH_THEME_ORIG_PATH\""
         export PATH="$ZSH_THEME_ORIG_PATH"
+        unset ZSH_THEME_ORIG_PATH
     fi
 }
 
