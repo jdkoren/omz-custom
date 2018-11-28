@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Git hook that verifies the user has set a proper email address in his or her
 # gitconfig, otherwise exits with an error (aborting the commit).

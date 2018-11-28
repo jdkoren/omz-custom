@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # This script prevents pushing commits where the log message starts with "WIP"
 # (work in progress) or "stash" if the remote ref begins with "refs/for/". This
