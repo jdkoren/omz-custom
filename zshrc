@@ -53,13 +53,15 @@ source $ZSH/oh-my-zsh.sh
 
 # Theme var that stores the PATH before any user configurations modify it.
 # sub-scripts are obliged NOT to change this.
-declare ZSH_THEME_ORIG_PATH="$PATH"
+if [[ -z "$ZSH_THEME_ORIG_PATH" ]]; then
+    export ZSH_THEME_ORIG_PATH="$PATH"
+fi
 
 # Reset PATH to what it was before this file was sourced
 reset_path () {
     if [[ -n "$ZSH_THEME_ORIG_PATH" ]]; then
         echo "Resetting PATH to \"$ZSH_THEME_ORIG_PATH\""
-        export PATH=$ZSH_THEME_ORIG_PATH
+        export PATH="$ZSH_THEME_ORIG_PATH"
     fi
 }
 
