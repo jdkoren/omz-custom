@@ -72,3 +72,22 @@ gerrit-init() {
   cp ${ZSH_CUSTOM}/gerrit-pre-commit ${gitdir}/hooks/pre-commit \
     && chmod +x ${gitdir}/hooks/pre-commit
 }
+
+# Add shuf on Darwin
+if [[ $(uname) = 'Darwin' ]]; then
+  if [[ $(which ruby) ]]; then
+    shuf() {
+      ruby -e 'Signal.trap("SIGPIPE", "SYSTEM_DEFAULT");
+          puts ARGF.readlines.shuffle' "$@";
+    }
+  elif [[ $(which perl) ]]; then
+    shuf() {
+      perl -MList::Util=shuffle -e 'print shuffle(<>);' "$@";
+    }
+  else
+    shuf() {
+      awk 'BEGIN {srand(); OFMT="%.17f"} {print rand(), $0}' "$@" |
+          sort -k1,1n | cut -d ' ' -f2-;
+    }
+  fi
+fi
