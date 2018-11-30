@@ -6,8 +6,8 @@ join_by() {
 }
 
 # append elements to PATH
-append_path() {
-  export PATH=$PATH:$(join_by : $@)
+set_path() {
+  export PATH=$(join_by : $@)
 }
 
 # compressed file extractor
