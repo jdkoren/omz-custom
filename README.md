@@ -17,11 +17,10 @@ My oh-my-zsh customizations.
   mv .zshrc .zshrc.bak
   mv .gitconfig .gitconfig.bak
   mv .hgrc .hgrc.bak
-  ln -s .oh-my-zsh/custom/jdk/zshrc .zshrc
+  cp .oh-my-zsh/custom/jdk/zshrc .zshrc
   ln -s .oh-my-zsh/custom/jdk/gitconfig .gitconfig
   ln -s .oh-my-zsh/custom/jdk/hgrc .hgrc
-  cp .oh-my-zsh/custom/jdk/zshlocalrc .zshlocalrc
-  # edit .zshlocalrc with your configurations
+  # edit ~/.zshrc with your configurations
   ```
 
 [1]: https://help.github.com/articles/connecting-to-github-with-ssh/

@@ -51,43 +51,19 @@ source $ZSH/oh-my-zsh.sh
 
 ### User configuration ###
 
-# Theme var that stores the PATH before any user configurations modify it.
-# sub-scripts are obliged NOT to change this.
-if [[ -z "$ZSH_THEME_ORIG_PATH" ]]; then
-    export ZSH_THEME_ORIG_PATH="$PATH"
+export LESS="-cR"
+
+# Re-alias
+alias l='LC_COLLATE=C ls -alhG'
+alias ll='LC_COLLATE=C ls -alhG'
+
+# Cowsay
+export COWPATH="/usr/share/cowsay/cows"
+if [ -d "$ZSH_CUSTOM/cows" ] ; then
+    COWPATH="$COWPATH:$ZSH_CUSTOM/cows"
 fi
 
-# Reset PATH to what it was before this file was sourced
-reset_path () {
-    if [[ -n "$ZSH_THEME_ORIG_PATH" ]]; then
-        echo "Resetting PATH to \"$ZSH_THEME_ORIG_PATH\""
-        export PATH="$ZSH_THEME_ORIG_PATH"
-        unset ZSH_THEME_ORIG_PATH
-    fi
-}
-
-# Function that sub-scripts can use to determine if this is the first time zsh
-# is being sourced.
-is_first_source() {
-    [[ -z "$ZSH_THEME_FIRST_SOURCE_DONE" ]]
-}
-
-# In case this isn't the first sourcing, remove this function to avoid resets
-# while sub-script is sourcing.
-unset -f reset_zsh 2>/dev/null
-
-# Source local configurations file.
-if [[ -s "$HOME/.zshlocalrc" ]]; then
-    source "$HOME/.zshlocalrc"
-fi
-
-declare ZSH_THEME_FIRST_SOURCE_DONE=true
-
-# Reset zsh so that the next source behaves like the first source.
-reset_zsh() {
-    reset_path
-    unset ZSH_THEME_FIRST_SOURCE_DONE
-}
+# TODO set_path "$PATH" ...
 
 ### End user configuration ###
 

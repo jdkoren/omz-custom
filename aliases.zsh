@@ -1,5 +1,4 @@
 alias sz='source ~/.zshrc'
-alias rsz='reset_zsh && sz'
 
 alias aliases="alias | sed -e 's/=/ = /' | less"
 
