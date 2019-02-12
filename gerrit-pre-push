@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
 #
-# This script prevents pushing commits where the log message starts with "WIP"
-# (work in progress) or "stash" if the remote ref begins with "refs/for/". This
-# prevents incomplete/unwanted commits from inadvertently being pushed to Gerrit
-# instances.
+# Usage: Copy this file to your repository's .git/hooks directory. Rename the
+# copy to "pre-push" and set the executable bit.
 #
-# Prefer copying this file to your project's ./git/hooks directory (make sure to
-# rename to "pre-push") rather than symlinking. This allows you to modify the
-# block at the end so you can run project-specific checks, like unit tests,
-# before each push.
+# This hook aborts git push when the log message of any commits to be pushed
+# starts with "WIP" (work in progress) or "stash", if the remote ref begins
+# with "refs/for/". This prevents incomplete/unwanted commits from being
+# pushed to Gerrit instances.
 #
-# (remaining comments copied from .git/hooks/pre-push.sample)
+# To run project-specific checks before pushing (e.g. a test suite), do either
+# of the following:
+#
+# - Add a file named "gerrit-pre-push" in the .git/hooks directory. It will be
+#   executed if pushing to Gerrit, and its exit status will be used as the exit
+#   status for this hook.
+#
+# - Modify the block at the end of this file with your commands. (In that case,
+#   make sure this isn't a symlinked file.)
+#
+# Remaining comments are copied from .git/hooks/pre-push.sample.
 #
 # An example hook script to verify what is about to be pushed. Called by "git
 # push" after it has checked the remote status, but before anything has been
@@ -92,7 +100,11 @@ do
 done
 
 if [[ -n "$run_checks" ]]; then
-  : #TODO replace with your checks, e.g. unit tests
+  hookfile="$(git rev-parse --git-dir)/hooks/gerrit-pre-push"
+  if [[ -e "$hookfile" ]]; then
+    [[ -x "$hookfile" ]] && "$hookfile"
+    exit $?
+  fi
 fi
 
 exit 0
