@@ -10,6 +10,18 @@ set_path() {
   export PATH=$(join_by : $@)
 }
 
+append_path() {
+  local SAVED_IFS="$IFS"
+  local dir
+  IFS=:
+  for dir in $1 ; do
+    if ! $( echo "$PATH" | tr ":" "\n" | grep -qx "$dir" ) ; then
+      PATH=$PATH:$dir
+    fi
+  done
+  IFS="$SAVED_IFS"
+}
+
 # compressed file extractor
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
 extract() {
