@@ -17,6 +17,7 @@ abbreviateCommands = true
 
 [trainingwheels]
 prevent-revert--all=false
+prevent-push-dirty=false
 
 [alias]
 alias = !hg config | grep 'alias\.' | sed 's/alias\.\([^=]*\)=\(.*\)/\1\	=> \2/' | less
