@@ -3,8 +3,11 @@
 # Usage: Copy this file to your repository's .git/hooks directory. Rename the
 # copy to "pre-push" and set the executable bit.
 #
+#   cp gerrit-pre-push /path/to/repo/.git/hooks/pre-push \
+#       && chmod +x /path/to/repo/.git/hooks/pre-push
+#
 # This hook aborts git push when the log message of any commits to be pushed
-# starts with "WIP" (work in progress) or "stash", if the remote ref begins
+# starts with "WIP" (work in progress) or "stash", and the remote ref begins
 # with "refs/for/". This prevents incomplete/unwanted commits from being
 # pushed to Gerrit instances.
 #
