@@ -5,22 +5,25 @@ join_by() {
   echo "$*";
 }
 
-# append elements to PATH
-set_path() {
-  export PATH=$(join_by : $@)
-}
-
-append_path() {
-  local SAVED_IFS="$IFS"
-  local dir
-  IFS=:
-  for dir in $1 ; do
-    if ! $( echo "$PATH" | tr ":" "\n" | grep -qx "$dir" ) ; then
+# Add directories to PATH
+add_to_path() {
+  for dir in $@ ; do
+    if ! [[ $PATH =~ "$dir" ]]; then
       PATH=$PATH:$dir
     fi
   done
-  IFS="$SAVED_IFS"
 }
+
+# Remove duplicate PATH entries
+if [[ $(which perl) ]]; then
+  dedupe_path() {
+    PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+  }
+else
+  dedupe_path() {
+    PATH=$(awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}' <<<$PATH)
+  }
+fi
 
 # compressed file extractor
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)

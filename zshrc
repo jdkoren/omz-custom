@@ -63,9 +63,11 @@ if [ -d "$ZSH_CUSTOM/cows" ] ; then
     COWPATH="$COWPATH:$ZSH_CUSTOM/cows"
 fi
 
-# TODO set_path "$PATH" ...
+# TODO add_to_path "$PATH" ...
 
 ### End user configuration ###
+
+dedupe_path
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
