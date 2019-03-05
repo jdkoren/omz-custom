@@ -1,3 +1,8 @@
+# Create directory and cd to it
+mkcd() {
+  mkdir -p "$1" && cd "$1";
+}
+
 # join arguments using $1 as separator, e.g. `join_by , a b c` returns "a,b,c"
 join_by() {
   local IFS="$1";
