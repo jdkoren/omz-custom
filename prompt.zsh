@@ -20,13 +20,21 @@ git_remote_ahead_behind() {
     fi
 }
 
-# If a merge, rebase, or bisect is in progress, returns $ZSH_THEME_GIT_PROMPT_MERGING,
-# $ZSH_THEME_GIT_PROMPT_REBASING, or $ZSH_THEME_GIT_PROMPT_BISECTING respectively.
-git_merge_state() {
+# Returns a theme environment value if Git is in the middle of one of these
+# operations:
+#     Bisecting      -> ZSH_THEME_GIT_PROMPT_BISECTING
+#     Cherry-picking -> ZSH_THEME_GIT_PROMPT_CHERRYPICKING
+#     Merging        -> ZSH_THEME_GIT_PROMPT_MERGING
+#     Rebasing       -> ZSH_THEME_GIT_PROMPT_REBASING
+#     Reverting      -> ZSH_THEME_GIT_PROMPT_REVERTING
+git_conflict_state() {
     git_dir=$(command git rev-parse --git-dir 2>/dev/null)
     if [[ -e "${git_dir}/MERGE_HEAD" ]]
     then
         echo "$ZSH_THEME_GIT_PROMPT_MERGING"
+    elif [[ -e "${git_dir}/REVERT_HEAD" ]]
+    then
+        echo "$ZSH_THEME_GIT_PROMPT_REVERTING"
     elif [[ -e "${git_dir}/rebase-merge" || -e "${git_dir}/rebase-apply" ]]
     then
         echo "$ZSH_THEME_GIT_PROMPT_REBASING"
@@ -45,10 +53,10 @@ git_prompt_info_jdk() {
     ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
 
     git_info="${ref#refs/heads/}"
-    merge_state=$(git_merge_state)
-    if [[ -n ${merge_state} ]]
+    conflict_state=$(git_conflict_state)
+    if [[ -n ${conflict_state} ]]
     then
-        git_info="${git_info}${merge_state}"
+        git_info="${git_info}${conflict_state}"
     else
         git_info="${git_info}$(parse_git_dirty)$(git_remote_ahead_behind)"
     fi
