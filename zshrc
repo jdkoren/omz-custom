@@ -51,6 +51,8 @@ source $ZSH/oh-my-zsh.sh
 
 ### User configuration ###
 
+bindkey \^U backward-kill-line
+
 export LESS="-cR"
 
 # Re-alias
