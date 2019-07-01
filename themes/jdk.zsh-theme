@@ -28,9 +28,9 @@ export LS_COLORS="di=36:ln=30;46:so=35:pi=35;40:ex=32:bd=31;40:cd=31;40:su=36;44
 
 if [[ $(uname) = 'Darwin' ]]
 then
-    status_char=⨳
+  status_char='⨳'
 else
-    status_char=⮩
+  status_char='⮞' #'❯'
 fi
 local status_indicator="%B%(?|%F{010}|%F{009})$status_char %{$reset_font%}"
 
