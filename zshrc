@@ -53,6 +53,8 @@ source $ZSH/oh-my-zsh.sh
 
 bindkey \^U backward-kill-line
 
+autoload -U zmv
+
 export LESS="-cR"
 
 # Re-alias
