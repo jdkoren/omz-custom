@@ -61,31 +61,20 @@ git_prompt_info_jdk() {
         git_info="${git_info}$(parse_git_dirty)$(git_remote_ahead_behind)"
     fi
 
-    echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR${git_info}$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_GIT_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
+    echo "$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR${git_info}$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 # Replacement for hg_get_branch_name
 hg_get_rev_name() {
     if [ $(in_hg) ]
     then
-        # prefer current bookmark first
-        local _NAME=$(hg id --template "{currentbookmark}")
-#        if [ -z ${_NAME} ]; then
-#            # Next prefer an inactive bookmark
-#            _NAME=$(hg id -B | cut -d " " -f 1)
-#        fi
-        if [ -z "${_NAME}" ]; then
-            # Next prefer a tag
-            _NAME=$(hg id -t | cut -d " " -f 1)
+        local names=($(hg id -T "{currentbookmark} {tags} {p1.node|short} {dirty}\n"))
+        local rev="${names[1]}"
+        local last="${names[$#names]}"
+        if [[ "$last" = "+" ]]; then
+            rev+="$ZSH_THEME_HG_PROMPT_DIRTY"
         fi
-        if [ -z "${_NAME}" ]
-        then
-             # Finally just use the revision id
-            _NAME=$(hg id -i)
-        fi
-
-        echo "${_NAME}"
-
+        echo "$rev"
     fi
 }
 
@@ -93,9 +82,8 @@ hg_get_rev_name() {
 hg_prompt_info_jdk() {
     if [ $(in_hg) ]
     then
-        _DISPLAY=$(hg_get_rev_name)
-        echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_HG_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR$_DISPLAY$ZSH_PROMPT_BASE_COLOR$(hg_dirty)$ZSH_THEME_HG_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
-        unset _DISPLAY
+        local _display=$(hg_get_rev_name)
+        echo "$ZSH_THEME_HG_PROMPT_PREFIX$ZSH_THEME_REPO_NAME_COLOR$_display$ZSH_THEME_HG_PROMPT_SUFFIX"
     fi
 }
 
