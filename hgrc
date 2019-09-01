@@ -3,11 +3,13 @@
 username = jdkoren
 merge = internal:merge3
 editor = subl -n -w
+rollback = true
 
 [extensions]
 strip =
 journal =
 purge =
+rebase =
 
 [pager]
 ignore = status, version
@@ -18,6 +20,7 @@ abbreviateCommands = true
 [trainingwheels]
 prevent-revert--all=false
 prevent-push-dirty=false
+prevent-strip=false
 
 [alias]
 alias = !hg config | grep 'alias\.' | sed 's/alias\.\([^=]*\)=\(.*\)/\1\	=> \2/' | less
