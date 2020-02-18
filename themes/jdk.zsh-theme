@@ -26,6 +26,10 @@ ZSH_THEME_REPO_NAME_COLOR="%F{011}"
 export LSCOLORS="gxagfxfacxbabagegchchd"
 export LS_COLORS="di=36:ln=30;46:so=35:pi=35;40:ex=32:bd=31;40:cd=31;40:su=36;44:sg=36;42:tw=37;42:ow=37;43"
 
+# Brighten some grep colors.
+# See https://www.gnu.org/software/grep/manual/grep.html#index-GREP_005fCOLORS-environment-variable
+export GREP_COLORS='fn=96:ln=92'
+
 if [[ $(uname) = 'Darwin' ]]
 then
   status_char='⨳'
