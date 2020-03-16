@@ -38,5 +38,5 @@ else
 fi
 local status_indicator="%B%(?|%F{010}|%F{009})$status_char %{$reset_font%}"
 
-PROMPT='%B%F{045}%n %F{011}%~ $(all_prompt_info_jdk)
+PROMPT='%B%F{045}%n@%m %F{011}%~ $(all_prompt_info_jdk)
 $status_indicator%(!.#.$) ' # end space intentional
