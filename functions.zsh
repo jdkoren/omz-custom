@@ -14,7 +14,15 @@ join_by() {
 add_to_path() {
   for dir in $@ ; do
     if ! [[ $PATH =~ "$dir" ]]; then
-      PATH=$PATH:$dir
+      PATH="$PATH:$dir"
+    fi
+  done
+}
+
+prefix_path() {
+  for dir in $@ ; do
+    if ! [[ $PATH =~ "$dir" ]]; then
+      PATH="$dir:$PATH"
     fi
   done
 }
